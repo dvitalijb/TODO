@@ -13,8 +13,10 @@ class Todo {
 
     removeItem(id) {
         if (this.list[id] === undefined) {
+
             return false;
         }
+
         delete this.list[id];
 
         return true;
@@ -22,6 +24,7 @@ class Todo {
 
     getItem(id) {
         if (this.list[id] === undefined) {
+
             return null;
         }
 
@@ -29,25 +32,19 @@ class Todo {
     }
 
     next() {
-        try {
-            if (Object.keys(this.list).length === 0) {
-                throw new Error('No items');
-            }
-
-            let highestPriority = {};
-
-            for (let key in this.list) {
-                if (this.list[key].priority > highestPriority.priority
-                    || Object.keys(highestPriority).length === 0) {
-                    highestPriority = {id: key, title: this.list[key].title, priority: this.list[key].priority};
-                }
-            }
-
-            return highestPriority;
-        } catch(e) {
-            console.log(e);
-
-            return false;
+        if (Object.keys(this.list).length === 0) {
+            throw new Error('No items');
         }
+
+        let highestPriority = {};
+
+        for (let key in this.list) {
+            if (this.list[key].priority > highestPriority.priority
+                || Object.keys(highestPriority).length === 0) {
+                highestPriority = {id: key, title: this.list[key].title, priority: this.list[key].priority};
+            }
+        }
+
+        return highestPriority;
     }
 }
